@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -13,29 +13,13 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
-@Entity(name = "USERS")
-public class User {
+public class UserDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true)
     private Long id;
-
-    @Column(name = "USER_NAME")
     private String username;
-
-    @Column(name = "E_MAIL")
     private String email;
-
-    @Column(name = "PASSWORD")
     private String password;
-
-    @Column(name = "ROLE")
     private Role role;
-
-    @Column(name = "CREATED")
     private Date created;
-
-    @Column(name = "BALANCE")
     private BigDecimal balance;
 }

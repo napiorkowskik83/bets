@@ -3,8 +3,9 @@ package com.crud.bets.mapper;
 import com.crud.bets.apis.CompetitionsMap;
 import com.crud.bets.apis.theoddsapi.ApiOdds;
 import com.crud.bets.domain.BetProspect;
-import com.crud.bets.apis.theoddsapi.OddsApiBetProspectDto;
+import com.crud.bets.apis.theoddsapi.OddsApiBetProspect;
 import com.crud.bets.apis.theoddsapi.Site;
+import com.crud.bets.domain.BetProspectDto;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,16 +18,16 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BetProspectMapperTestSuite {
+public class OddsBetProspectMapperTestSuite {
 
     @Autowired
-    BetProspectMapper betProspectMapper;
+    OddsBetProspectMapper oddsBetProspectMapper;
 
     @Autowired
     CompetitionsMap competitionsMap;
 
     @Test
-    public void mapToBetProspect() {
+    public void mapToBetProspectDto() {
         //Given
         List<Double> h2h1 = new ArrayList<>();
         h2h1.add(5.45);
@@ -52,19 +53,19 @@ public class BetProspectMapperTestSuite {
 
         ZonedDateTime commenceTime = ZonedDateTime.parse("2020-11-28T18:30:50Z");
 
-        OddsApiBetProspectDto apiBetProspect = new OddsApiBetProspectDto(
+        OddsApiBetProspect apiBetProspect = new OddsApiBetProspect(
                 "soccer_spain_la_liga", teams, "Real Madrid", commenceTime, sites);
 
         //When
-        BetProspect betProspect = betProspectMapper.mapToBetProspect(apiBetProspect);
+        BetProspectDto betProspectDto = oddsBetProspectMapper.mapFromOddsToBetProspectDto(apiBetProspect);
 
         //Then
-        Assert.assertEquals(commenceTime, betProspect.getCommence_time());
+        Assert.assertEquals(commenceTime, betProspectDto.getCommence_time());
         System.out.println(
-                betProspect.getSport_key() + "\n" +
-                betProspect.getTeams() + "\n" +
-                betProspect.getH2h() + "\n" +
-                betProspect.getCommence_time() + "\n"
+                betProspectDto.getSport_key() + "\n" +
+                betProspectDto.getTeams() + "\n" +
+                betProspectDto.getH2h() + "\n" +
+                betProspectDto.getCommence_time() + "\n"
         );
     }
 }

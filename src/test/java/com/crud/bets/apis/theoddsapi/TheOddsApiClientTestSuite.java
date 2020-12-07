@@ -26,12 +26,12 @@ public class TheOddsApiClientTestSuite {
 
         //Given
         //When
-        List<OddsApiBetProspectDto> prospectList = apiClient.getCurrentOddsProspectDtosFrom(apiConfig.getLaLigaKey());
+        List<OddsApiBetProspect> prospectList = apiClient.getCurrentOddsProspectFrom(apiConfig.getLaLigaKey());
 
         //Then
         System.out.println(prospectList.size() + " matches to stake: \n");
 
-        for (OddsApiBetProspectDto prospect: prospectList){
+        for (OddsApiBetProspect prospect: prospectList){
             System.out.println(prospect.getCommence_time().toLocalDateTime() + " sites qty: " + prospect.getSites().size());
             System.out.println(prospect.getTeams().get(0) + " vs. " + prospect.getTeams().get(1) + "\n");
         }

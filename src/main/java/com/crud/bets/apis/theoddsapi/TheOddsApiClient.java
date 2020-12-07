@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+
 import static java.util.Optional.ofNullable;
 
 @Component
@@ -27,24 +28,24 @@ public class TheOddsApiClient {
         this.restTemplate = restTemplate;
     }
 
-    public List<OddsApiBetProspectDto> getCurrentOddsProspectDtosFrom(String competitionKey){
+    public List<OddsApiBetProspect> getCurrentOddsProspectFrom(String competitionKey) {
         URI url = createUriForGetOddsProspects(competitionKey);
 
-        try{
-            OddsApiBetProspectDtoList prospectsResponse = restTemplate.getForObject(url, OddsApiBetProspectDtoList.class);
+        try {
+            OddsApiBetProspectList prospectsResponse = restTemplate.getForObject(url, OddsApiBetProspectList.class);
             return ofNullable(prospectsResponse.getData()).orElse(new ArrayList<>());
-        }catch(RestClientException e){
+        } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return new ArrayList<>();
         }
     }
 
-    private URI createUriForGetOddsProspects(String competitionKey){
+    private URI createUriForGetOddsProspects(String competitionKey) {
         URI url = UriComponentsBuilder.fromHttpUrl(theOddsApiConfig.getTheOddApiEndpoint() +
                 "/odds/")
                 .queryParam("sport", competitionKey)
                 .queryParam("region", "eu")
-                .queryParam("mkt" , "h2h")
+                .queryParam("mkt", "h2h")
                 .queryParam("dateFormat", "iso")
                 .queryParam("apiKey", theOddsApiConfig.getTheOddApiKey())
                 .build().encode().toUri();

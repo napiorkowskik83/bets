@@ -1,6 +1,7 @@
 package com.crud.bets.apis.footballdata;
 
 import com.crud.bets.apis.footballdata.config.FootballDataApiConfig;
+import com.crud.bets.domain.Bet;
 import com.crud.bets.domain.BetProspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,9 @@ public class FootballDataClient {
         this.restTemplate = restTemplate;
     }
 
-    public List<Match> getDailyMatchesResults(BetProspect betProspect){
+    public List<Match> getDailyMatchesResults(Bet bet){
 
-        URI url = createUriForGetDailyMatchesResults(betProspect);
+        URI url = createUriForGetDailyMatchesResults(bet);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set(dataApiConfig.getFootballDataApiHeader(), dataApiConfig.getFootballDataApiToken());
@@ -52,7 +53,8 @@ public class FootballDataClient {
         }
     }
 
-    private URI createUriForGetDailyMatchesResults(BetProspect betProspect) {
+    private URI createUriForGetDailyMatchesResults(Bet bet) {
+        BetProspect betProspect = bet.getBetProspect();
         URI url = UriComponentsBuilder.fromHttpUrl(dataApiConfig.getFootballDataApiEndpoint() +
                 "/competitions/" + betProspect.getSport_key() + "/matches")
                 .queryParam("dateFrom", betProspect.getCommence_time().toLocalDate())
