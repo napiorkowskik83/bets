@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -30,12 +32,22 @@ public class User {
     @Column(name = "PASSWORD")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
     private Role role;
 
     @Column(name = "CREATED")
-    private Date created;
+    private LocalDate created;
 
     @Column(name = "BALANCE")
     private BigDecimal balance;
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = Role.USER;
+        this.created = LocalDate.now();
+        this.balance = new BigDecimal("0.00").setScale(2, RoundingMode.HALF_UP);
+    }
 }

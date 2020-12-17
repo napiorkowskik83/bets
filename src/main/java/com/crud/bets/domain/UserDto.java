@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -20,6 +21,6 @@ public class UserDto {
     private String email;
     private String password;
     private Role role;
-    private Date created;
+    private LocalDate created;
     private BigDecimal balance;
 }

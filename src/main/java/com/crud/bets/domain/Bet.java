@@ -9,6 +9,24 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@NamedNativeQuery(
+        name = "Bet.getAllBetsOfUser",
+        query = "SELECT * FROM BETS " +
+                "JOIN BET_PROSPECTS BP ON BETS.BET_PROSPECT_ID = BP.ID " +
+                "WHERE USER_ID = :USER_ID " +
+                "ORDER BY BP.COMMENCE_TIME DESC",
+        resultClass = Bet.class
+)
+
+@NamedNativeQuery(
+        name = "Bet.getPendingBetsOfUser",
+        query = "SELECT * FROM BETS " +
+                "JOIN BET_PROSPECTS BP ON BETS.BET_PROSPECT_ID = BP.ID " +
+                "WHERE (FINALIZED = FALSE AND USER_ID = :USER_ID) " +
+                "ORDER BY BP.COMMENCE_TIME DESC",
+        resultClass = Bet.class
+)
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -25,29 +43,34 @@ public class Bet {
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "BET_PROSPECT_ID")
     private BetProspect betProspect;
 
     @Column(name = "CREATED")
     private LocalDateTime created;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "TIPPED_WINNER")
     private Winner tippedWinner;
+
+    @Column(name = "ODD")
+    private BigDecimal odd;
 
     @Column(name = "STAKE")
     private BigDecimal stake;
 
     @Column(name = "FINALIZED")
-    private Boolean finalized;
+    private boolean finalized;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "WINNER")
-    Winner winner;
+    private Winner winner;
 
     @Column(name = "WON")
-    Boolean won;
+    private boolean won;
 
     @Column(name = "CASH_WIN")
-    BigDecimal cashWin;
+    private BigDecimal cashWin;
 
    }

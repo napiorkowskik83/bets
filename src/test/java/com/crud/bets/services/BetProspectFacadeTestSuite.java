@@ -21,15 +21,11 @@ public class BetProspectFacadeTestSuite {
     public void TestGetCurrentBetProspectDtoList() {
         //Given
         //When
-        List<BetProspectDto> list = betProspectFacade.getCurrentBetProspectDtoList("soccer_spain_la_liga");
+//        List<BetProspectDto> list = betProspectFacade.getCurrentBetProspectDtoList("soccer_spain_la_liga");
         //Then
-        for(BetProspectDto prospect: list){
-            System.out.println(prospect.getCommence_time() + " " + prospect.getTeams().get(0) + " vs " +
-                    prospect.getTeams().get(1) + " " + prospect.getH2h());
-        }
-
-
-
-
+//        for(BetProspectDto prospect: list){
+//            System.out.println(prospect.getCommence_time() + " " + prospect.getTeams().get(0) + " vs " +
+//                    prospect.getTeams().get(1) + " " + prospect.getH2h());
+//        }
     }
 }

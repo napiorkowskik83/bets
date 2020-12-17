@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -43,10 +44,11 @@ public class FootballDataClientTestSuite {
         BetProspect betProspect = new BetProspect(sport_key, teams, commence_time, h2h);
 
         User user = new User(1L, "testUser", "testEmail", "testPassword",
-                Role.USER, Date.valueOf("2020-12-01"), new BigDecimal("100"));
+                Role.USER, LocalDate.parse("2020-12-01"), new BigDecimal("100"));
 
         Bet bet = new Bet(1L, user, betProspect, LocalDateTime.parse("2020-11-28T20:00:50"),
-                Winner.HOME_TEAM, new BigDecimal("55.43"), false, null, false, null);
+                Winner.HOME_TEAM, betProspect.getH2h().get(0), new BigDecimal("55.43"),
+                false, null, false, null);
 
         //When
         List<Match> matches = dataClient.getDailyMatchesResults(bet);
@@ -69,21 +71,5 @@ public class FootballDataClientTestSuite {
 
         //Then
         Assert.assertNotEquals(0, matches.size());
-
-        for(Match match: matches){
-            System.out.println(match.getHomeTeam().getName() + "  "
-                    + match.getScore().getFullTime().getHomeTeamGoals()
-                    + " : " + match.getScore().getFullTime().getAwayTeamGoals()
-                    + "  " + match.getAwayTeam().getName()
-                    + "  " + match.getStatus() + "  winner: "
-                    + match.getScore().getWinner()
-            );
-
-            if(match.getHomeTeam().getId().equals(teamsMap.getTeams().get(betProspect.getTeams().get(0)))
-                    && match.getAwayTeam().getId().equals(teamsMap.getTeams().get(betProspect.getTeams().get(1)))
-                    && match.getStatus().equals("FINISHED")){
-                System.out.println(" - matching game");
-            }
-        }
     }
 }

@@ -23,8 +23,8 @@ public class BetMapper {
     public Bet mapToBet(BetDto betDto){
         return new Bet(betDto.getId(), userMapper.mapToUser(betDto.getUser()),
                 betProspectMapper.mapToBetProspect(betDto.getBetProspect()), betDto.getCreated(),
-                betDto.getTippedWinner(), betDto.getStake(), betDto.getFinalized(), betDto.getWinner(),
-                betDto.getWon(), betDto.getCashWin());
+                betDto.getTippedWinner(), betDto.getOdd(), betDto.getStake(), betDto.isFinalized(), betDto.getWinner(),
+                betDto.isWon(), betDto.getCashWin());
     }
 
     public List<Bet> mapToBetList(List<BetDto> betDtoList){
@@ -36,8 +36,8 @@ public class BetMapper {
     public BetDto mapToBetDto(Bet bet){
         return new BetDto(bet.getId(), userMapper.mapToUserDto(bet.getUser()),
                 betProspectMapper.mapToBetProspectDto(bet.getBetProspect()), bet.getCreated(),
-                bet.getTippedWinner(), bet.getStake(), bet.getFinalized(), bet.getWinner(),
-                bet.getWon(), bet.getCashWin());
+                bet.getTippedWinner(), bet.getOdd(), bet.getStake(), bet.isFinalized(), bet.getWinner(),
+                bet.isWon(), bet.getCashWin());
     }
 
     public List<BetDto> mapToBetDtoList(List<Bet> betList){

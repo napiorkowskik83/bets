@@ -2,6 +2,8 @@ package com.crud.bets.mapper;
 
 import com.crud.bets.domain.User;
 import com.crud.bets.domain.UserDto;
+import org.jasypt.util.password.StrongPasswordEncryptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,7 +13,8 @@ import java.util.stream.Collectors;
 public class UserMapper {
 
     public User mapToUser(UserDto userDto){
-        return new User(userDto.getId(), userDto.getUsername(), userDto.getEmail(), userDto.getPassword(),
+        return new User(userDto.getId(), userDto.getUsername(), userDto.getEmail(),
+                userDto.getPassword(),
                 userDto.getRole(), userDto.getCreated(), userDto.getBalance());
     }
 

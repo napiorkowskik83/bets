@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.core.annotation.Order;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,15 +29,15 @@ public class BetProspect {
     @Column(name = "SPORT_KEY")
     private Integer sport_key;
 
-    @ElementCollection(targetClass = String.class)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @OrderColumn
     private List<String> teams;
 
     @Column(name = "COMMENCE_TIME")
     private ZonedDateTime commence_time;
 
-    @ElementCollection(targetClass = BigDecimal.class)
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ElementCollection(targetClass = BigDecimal.class, fetch = FetchType.EAGER)
+    @OrderColumn
     private List<BigDecimal> h2h;
 
     public BetProspect(Integer sport_key, List<String> teams, ZonedDateTime commence_time, List<BigDecimal> h2h) {
