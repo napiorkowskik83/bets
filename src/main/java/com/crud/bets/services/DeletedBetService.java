@@ -1,9 +1,7 @@
 package com.crud.bets.services;
 
 import com.crud.bets.domain.DeletedBet;
-import com.crud.bets.domain.LogInAttempt;
 import com.crud.bets.repositories.DeletedBetRepository;
-import com.crud.bets.repositories.LogInAttemptRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +24,8 @@ public class DeletedBetService {
         return repository.findAll();
     }
 
-    public List<DeletedBet> getAllDeletedBetsOfUser(Long userId) {
-        return repository.getAllDeletedBetsOfUser(userId);
+    public List<DeletedBet> getDeletedBetsOfUser(Long userId) {
+        return repository.getDeletedBetsOfUser(userId);
     }
 }
 

@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 public class BetsReviewerWatcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(BetsReviewerWatcher.class);
 
-    @Before("execution(* com.crud.bets.services.BetsReviewer.updateBetsStatus(..))" +
-            "&& args(userId) && target(object)")
+    @Before(value = "execution(* com.crud.bets.services.BetsReviewer.updateBetsStatus(..))" +
+            "&& args(userId) && target(object)", argNames = "userId,object")
     public void logEvent(Long userId, Object object) {
         LOGGER.info("Class: " + object.getClass().getName() + ", userId: " + userId);
     }

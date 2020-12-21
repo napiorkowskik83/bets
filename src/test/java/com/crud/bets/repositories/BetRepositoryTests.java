@@ -1,6 +1,9 @@
 package com.crud.bets.repositories;
 
-import com.crud.bets.domain.*;
+import com.crud.bets.domain.Bet;
+import com.crud.bets.domain.BetProspect;
+import com.crud.bets.domain.User;
+import com.crud.bets.domain.Winner;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -41,9 +44,7 @@ public class BetRepositoryTests {
         h2h1.add(new BigDecimal("3.94"));
         h2h1.add(new BigDecimal("4.18"));
 
-        BetProspect betProspect1 = new BetProspect( sport_key1, teams1, commence_time1, h2h1);
-
-//        User user1 = userRepository.findByUsername("Kris").get();
+        BetProspect betProspect1 = new BetProspect(sport_key1, teams1, commence_time1, h2h1);
 
         User user1 = new User("Test_user", "Test12@test.com", "test_password");
         userRepository.save(user1);
@@ -72,7 +73,7 @@ public class BetRepositoryTests {
         Bet bet2 = new Bet(null, user1, betProspect2, LocalDateTime.now(), Winner.AWAY_TEAM,
                 betProspect2.getH2h().get(0), new BigDecimal("30.00"), true,
                 Winner.AWAY_TEAM, true,
-                betProspect2.getH2h().get(0).multiply(new BigDecimal("30.00")).setScale(2));
+                betProspect2.getH2h().get(0).multiply(new BigDecimal("30.00")).setScale(2, RoundingMode.HALF_UP));
 
         betRepository.save(bet2);
         Long bet2Id = bet2.getId();
@@ -86,11 +87,11 @@ public class BetRepositoryTests {
         Assert.assertEquals(1, pendingBetsOfUser.size());
 
         //Clean Up
-        try{
+        try {
             betRepository.deleteById(bet1Id);
             betRepository.deleteById(bet2Id);
             userRepository.deleteById(user1Id);
-        }catch (Exception e){
+        } catch (Exception e) {
             //do nothing
         }
     }

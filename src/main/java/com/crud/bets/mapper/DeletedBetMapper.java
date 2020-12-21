@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 @Component
 public class DeletedBetMapper {
 
-    public DeletedBetDto mapToDeletedBetDto(DeletedBet deletedBet){
-        return new DeletedBetDto(deletedBet.getId(), deletedBet.getUser().getId(), deletedBet.getHemeTeam(),
+    public DeletedBetDto mapToDeletedBetDto(DeletedBet deletedBet) {
+        return new DeletedBetDto(deletedBet.getId(), deletedBet.getUser().getId(), deletedBet.getHomeTeam(),
                 deletedBet.getAwayTeam(), deletedBet.getCommence_time(), deletedBet.getTippedWinner(),
                 deletedBet.getOdd(), deletedBet.getStake(), deletedBet.getDeleteTime());
     }
 
-    public List<DeletedBetDto> mapToDeletedBetDtoList(List<DeletedBet> deletedBetList){
-        return deletedBetList.stream().map(deletedBet -> mapToDeletedBetDto(deletedBet))
+    public List<DeletedBetDto> mapToDeletedBetDtoList(List<DeletedBet> deletedBetList) {
+        return deletedBetList.stream().map(this::mapToDeletedBetDto)
                 .collect(Collectors.toList());
     }
 }

@@ -11,13 +11,16 @@ import org.thymeleaf.context.Context;
 @Service
 public class MailCreatorService {
 
-    @Autowired
-    private AdminConfig adminConfig;
+    private final AdminConfig adminConfig;
 
-    @Autowired
     @Qualifier("templateEngine")
-    private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
 
+    @Autowired
+    public MailCreatorService(AdminConfig adminConfig, TemplateEngine templateEngine) {
+        this.adminConfig = adminConfig;
+        this.templateEngine = templateEngine;
+    }
 
     public String buildBetsWonInfoEmail(String message, String username) {
 

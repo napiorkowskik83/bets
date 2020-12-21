@@ -11,18 +11,18 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface UserRepository extends CrudRepository<User, Long>{
+public interface UserRepository extends CrudRepository<User, Long> {
 
-        @Override
-        List<User> findAll();
+    @Override
+    List<User> findAll();
 
-        @Override
-        User save(User user);
+    @Override
+    User save(User user);
 
-        @Override
-        Optional<User> findById(Long id);
+    @Override
+    Optional<User> findById(Long id);
 
-        Optional<User> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-        Optional<User> findByEmail(String username);
+    Optional<User> findByEmail(String username);
 }

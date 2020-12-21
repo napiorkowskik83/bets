@@ -1,7 +1,6 @@
 package com.crud.bets.repositories;
 
 import com.crud.bets.domain.Bet;
-import com.crud.bets.domain.BetProspect;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +28,4 @@ public interface BetRepository extends CrudRepository<Bet, Long> {
 
     @Query(nativeQuery = true)
     List<Bet> getPendingBetsOfUser(@Param("USER_ID") Long userId);
- }
+}

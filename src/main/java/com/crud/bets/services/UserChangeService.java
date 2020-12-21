@@ -19,27 +19,27 @@ public class UserChangeService {
         this.balanceChangeRepository = balanceChangeRepository;
     }
 
-    public UserDataChange addUserDataChange(UserDataChange userDataChange){
+    public UserDataChange addUserDataChange(UserDataChange userDataChange) {
         return dataChangeRepository.save(userDataChange);
     }
 
-    public List<UserDataChange> getAllUsersDataChanges(){
+    public List<UserDataChange> getAllUsersDataChanges() {
         return dataChangeRepository.findAll();
     }
 
-    public List<UserDataChange> getAllDataChangesOfUser(Long userId){
-        return dataChangeRepository.getAllDataChangesOfUser(userId);
+    public List<UserDataChange> getDataChangesOfUser(Long userId) {
+        return dataChangeRepository.getDataChangesOfUser(userId);
     }
 
-    public UserBalanceChange addUserBalanceChange(UserBalanceChange userBalanceChange){
+    public UserBalanceChange addUserBalanceChange(UserBalanceChange userBalanceChange) {
         return balanceChangeRepository.save(userBalanceChange);
     }
 
-    public List<UserBalanceChange> getAllUsersBalanceChanges(){
+    public List<UserBalanceChange> getAllUsersBalanceChanges() {
         return balanceChangeRepository.findAll();
     }
 
-    public List<UserBalanceChange> getAllBalanceChangesOfUser(Long userId){
-        return balanceChangeRepository.getAllBalanceChangesOfUser(userId);
+    public List<UserBalanceChange> getBalanceChangesOfUser(Long userId) {
+        return balanceChangeRepository.getBalanceChangesOfUser(userId);
     }
 }

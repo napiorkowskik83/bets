@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NamedNativeQuery(
-        name = "UserDataChange.getAllDataChangesOfUser",
+        name = "UserDataChange.getDataChangesOfUser",
         query = "SELECT * FROM USER_DATA_CHANGES " +
                 "WHERE USER_ID = :USER_ID " +
                 "ORDER BY CHANGE_TIME DESC",

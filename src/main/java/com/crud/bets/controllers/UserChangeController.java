@@ -30,21 +30,21 @@ public class UserChangeController {
 
     @GetMapping(value = "/userdatachanges")
     public List<UserDataChangeDto> getAllUsersDataChanges() {
-        return dataChangeMapper.mapToUserDataChangeList(service.getAllUsersDataChanges());
+        return dataChangeMapper.mapToUserDataChangeDtoList(service.getAllUsersDataChanges());
     }
 
     @GetMapping(value = "/userdatachanges/{userId}")
-    public List<UserDataChangeDto> getAllDataChangesOfUser(@PathVariable Long userId) {
-        return dataChangeMapper.mapToUserDataChangeList(service.getAllDataChangesOfUser(userId));
+    public List<UserDataChangeDto> getDataChangesOfUser(@PathVariable Long userId) {
+        return dataChangeMapper.mapToUserDataChangeDtoList(service.getDataChangesOfUser(userId));
     }
 
     @GetMapping(value = "/userbalancechanges")
     public List<UserBalanceChangeDto> getAllUsersBalanceChanges() {
-        return balanceChangeMapper.mapToUserBalanceChangeList(service.getAllUsersBalanceChanges());
+        return balanceChangeMapper.mapToUserBalanceChangeDtoList(service.getAllUsersBalanceChanges());
     }
 
     @GetMapping(value = "/userbalancechanges/{userId}")
-    public List<UserBalanceChangeDto> getAllBalanceChangesOfUser(@PathVariable Long userId) {
-        return balanceChangeMapper.mapToUserBalanceChangeList(service.getAllBalanceChangesOfUser(userId));
+    public List<UserBalanceChangeDto> getBalanceChangesOfUser(@PathVariable Long userId) {
+        return balanceChangeMapper.mapToUserBalanceChangeDtoList(service.getBalanceChangesOfUser(userId));
     }
 }

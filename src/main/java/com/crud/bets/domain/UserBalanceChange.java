@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @NamedNativeQuery(
-        name = "UserBalanceChange.getAllBalanceChangesOfUser",
+        name = "UserBalanceChange.getBalanceChangesOfUser",
         query = "SELECT * FROM USER_BALANCE_CHANGES " +
                 "WHERE USER_ID = :USER_ID " +
                 "ORDER BY CHANGE_TIME DESC",

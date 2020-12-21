@@ -73,4 +73,4 @@ public class Bet {
     @Column(name = "CASH_WIN")
     private BigDecimal cashWin;
 
-   }
+}

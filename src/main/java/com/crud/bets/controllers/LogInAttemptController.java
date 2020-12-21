@@ -28,16 +28,16 @@ public class LogInAttemptController {
     }
 
     @GetMapping(value = "/loginattampts")
-    public List<LogInAttemptDto> getAllUsersDataChanges() {
+    public List<LogInAttemptDto> getLoginAttempts() {
         return mapper.mapToLogInAttemptDtoList(service.getAllLogInAttempts());
     }
 
     @GetMapping(value = "/loginattampts/{userId}/{onlySuccessful}")
     public List<LogInAttemptDto> getLoginAttemptsOfUser(@PathVariable Long userId, @PathVariable Boolean onlySuccessful) {
-        if(onlySuccessful){
+        if (onlySuccessful) {
             return mapper.mapToLogInAttemptDtoList(service.getFailedLogInAttemptsOfUser(userId));
         }
         return mapper.mapToLogInAttemptDtoList(service.getAllLogInAttemptsOfUser(userId));
     }
 
-  }
+}

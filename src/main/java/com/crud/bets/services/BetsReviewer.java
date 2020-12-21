@@ -13,6 +13,7 @@ import com.crud.bets.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class BetsReviewer {
         this.teamsMap = teamsMap;
     }
 
-    public void updateBetsStatus(Long userId){
+    public void updateBetsStatus(Long userId) {
         List<Bet> pendingBets = betRepository.getPendingBetsOfUser(userId);
         List<Bet> betsToReview = pendingBets.stream()
                 .filter(bet -> minutes.between(bet.getBetProspect().getCommence_time(), ZonedDateTime.now()) > 105)
@@ -84,17 +85,16 @@ public class BetsReviewer {
             }
         }
 
-        if (won > 0){
+        if (won > 0) {
             sendBetsWonInfoEmail(user, finalized, won, cashWin);
         }
-
     }
 
     private void sendBetsWonInfoEmail(User user, int finalized, int won, BigDecimal cashWin) {
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
         String formattedDateTime = LocalDateTime.now().format(formatter);
         String betsOrBet = "bets";
-        if(finalized == 1){
+        if (finalized == 1) {
             betsOrBet = "bet";
         }
         String message = finalized + " " + betsOrBet + " has been finalized at " + formattedDateTime + ". " +

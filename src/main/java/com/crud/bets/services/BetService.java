@@ -42,7 +42,7 @@ public class BetService {
 
     public List<Bet> getAllBets() {
         List<User> users = userRepository.findAll();
-        for (User user: users){
+        for (User user : users) {
             betsReviewer.updateBetsStatus(user.getId());
         }
         return betRepository.findAll();
@@ -58,8 +58,8 @@ public class BetService {
         return betRepository.getPendingBetsOfUser(userId);
     }
 
-    public void deleteBet(Long betId){
-        if(betRepository.existsById(betId)){
+    public void deleteBet(Long betId) {
+        if (betRepository.existsById(betId)) {
             Bet bet = betRepository.findById(betId).get();
             deletedBetRepository.save(new DeletedBet(bet));
         }

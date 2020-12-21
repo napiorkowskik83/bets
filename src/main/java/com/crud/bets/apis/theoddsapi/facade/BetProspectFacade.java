@@ -31,9 +31,8 @@ public class BetProspectFacade {
     }
 
     public List<BetProspectDto> getCurrentBetProspectDtoList(BetProspectsRequestDto prospectsRequestDto) {
-
         List<OddsApiBetProspect> prospectList = new ArrayList<>();
-        for(String league: prospectsRequestDto.getLeagues()){
+        for (String league : prospectsRequestDto.getLeagues()) {
             prospectList.addAll(oddsApiClient.getCurrentOddsProspectFrom(leaguesMap.getLeagues().get(league)));
         }
 

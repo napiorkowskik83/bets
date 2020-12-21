@@ -14,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class BetProspectRepositoryTestSuite {
@@ -36,7 +34,7 @@ public class BetProspectRepositoryTestSuite {
         h2h.add(new BigDecimal("3.94"));
         h2h.add(new BigDecimal("4.18"));
 
-        BetProspect betProspect = new BetProspect( sport_key, teams, commence_time, h2h);
+        BetProspect betProspect = new BetProspect(sport_key, teams, commence_time, h2h);
 
         //When
         repository.save(betProspect);
@@ -50,11 +48,10 @@ public class BetProspectRepositoryTestSuite {
         System.out.println(optionalBetProspect.get().getTeams());
 
         //Clean Up
-        try{
+        try {
             repository.deleteById(id);
-        }catch (Exception e) {
+        } catch (Exception e) {
             //do nothing
         }
-
     }
 }

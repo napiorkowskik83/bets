@@ -41,4 +41,10 @@ public class BetProspectsRequest {
 
     @Column(name = "CREATED")
     private LocalDateTime created;
+
+    public BetProspectsRequest(User user, List<String> leagues, LocalDateTime created) {
+        this.user = user;
+        this.leagues = leagues;
+        this.created = created;
+    }
 }

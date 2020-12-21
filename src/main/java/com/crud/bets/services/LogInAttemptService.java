@@ -1,11 +1,7 @@
 package com.crud.bets.services;
 
 import com.crud.bets.domain.LogInAttempt;
-import com.crud.bets.domain.UserBalanceChange;
-import com.crud.bets.domain.UserDataChange;
 import com.crud.bets.repositories.LogInAttemptRepository;
-import com.crud.bets.repositories.UserBalanceChangeRepository;
-import com.crud.bets.repositories.UserDataChangeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

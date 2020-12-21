@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 @Component
 public class LogInAttemptMapper {
 
-    public LogInAttemptDto mapToLogInAttemptDto(LogInAttempt logInAttempt){
+    public LogInAttemptDto mapToLogInAttemptDto(LogInAttempt logInAttempt) {
         return new LogInAttemptDto(logInAttempt.getId(), logInAttempt.getUser().getId(),
                 logInAttempt.getLogin(), logInAttempt.getSuccessful(), logInAttempt.getAttemptTime());
     }
 
-    public List<LogInAttemptDto> mapToLogInAttemptDtoList(List<LogInAttempt> logInAttemptList){
-        return logInAttemptList.stream().map(logInAttempt -> mapToLogInAttemptDto(logInAttempt))
+    public List<LogInAttemptDto> mapToLogInAttemptDtoList(List<LogInAttempt> logInAttemptList) {
+        return logInAttemptList.stream().map(this::mapToLogInAttemptDto)
                 .collect(Collectors.toList());
     }
 }

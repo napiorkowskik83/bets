@@ -1,8 +1,6 @@
 package com.crud.bets.repositories;
 
 
-import com.crud.bets.domain.Bet;
-import com.crud.bets.domain.User;
 import com.crud.bets.domain.UserDataChange;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,17 +13,17 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface UserDataChangeRepository extends CrudRepository<UserDataChange, Long>{
+public interface UserDataChangeRepository extends CrudRepository<UserDataChange, Long> {
 
-        @Override
-        List<UserDataChange> findAll();
+    @Override
+    List<UserDataChange> findAll();
 
-        @Override
-        UserDataChange save(UserDataChange userDataChange);
+    @Override
+    UserDataChange save(UserDataChange userDataChange);
 
-        @Override
-        Optional<UserDataChange> findById(Long id);
+    @Override
+    Optional<UserDataChange> findById(Long id);
 
-        @Query(nativeQuery = true)
-        List<UserDataChange> getAllDataChangesOfUser(@Param("USER_ID") Long userId);
+    @Query(nativeQuery = true)
+    List<UserDataChange> getDataChangesOfUser(@Param("USER_ID") Long userId);
 }

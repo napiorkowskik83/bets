@@ -1,7 +1,6 @@
 package com.crud.bets.apis.theoddsapi.facade;
 
 import com.crud.bets.domain.BetProspectsRequestDto;
-import com.crud.bets.services.BetsReviewerWatcher;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,8 +15,8 @@ public class BetProspectFacadeWatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BetProspectFacadeWatcher.class);
 
-    @Before("execution(* com.crud.bets.apis.theoddsapi.facade.BetProspectFacade.getCurrentBetProspectDtoList(..))" +
-            "&& args(request) && target(object)")
+    @Before(value = "execution(* com.crud.bets.apis.theoddsapi.facade.BetProspectFacade.getCurrentBetProspectDtoList(..))" +
+            "&& args(request) && target(object)", argNames = "request,object")
     public void logEvent(BetProspectsRequestDto request, Object object) {
         LOGGER.info("Class: " + object.getClass().getName() + ", leagues: " + request.getLeagues());
     }

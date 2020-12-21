@@ -34,7 +34,7 @@ public class FootballDataClient {
         this.restTemplate = restTemplate;
     }
 
-    public List<Match> getDailyMatchesResults(Bet bet){
+    public List<Match> getDailyMatchesResults(Bet bet) {
 
         URI url = createUriForGetDailyMatchesResults(bet);
 
@@ -42,12 +42,11 @@ public class FootballDataClient {
         headers.set(dataApiConfig.getFootballDataApiHeader(), dataApiConfig.getFootballDataApiToken());
         HttpEntity entity = new HttpEntity(headers);
 
-        try{
+        try {
             ResponseEntity<Matches> responseEntity = restTemplate.exchange(
                     url, HttpMethod.GET, entity, Matches.class);
-            List<Match> matchList = ofNullable(responseEntity.getBody().getMatches()).orElse(new ArrayList<>());
-            return matchList;
-        }catch(RestClientException e){
+            return ofNullable(responseEntity.getBody().getMatches()).orElse(new ArrayList<>());
+        } catch (RestClientException e) {
             LOGGER.error(e.getMessage(), e);
             return new ArrayList<>();
         }
@@ -55,11 +54,10 @@ public class FootballDataClient {
 
     private URI createUriForGetDailyMatchesResults(Bet bet) {
         BetProspect betProspect = bet.getBetProspect();
-        URI url = UriComponentsBuilder.fromHttpUrl(dataApiConfig.getFootballDataApiEndpoint() +
+        return UriComponentsBuilder.fromHttpUrl(dataApiConfig.getFootballDataApiEndpoint() +
                 "/competitions/" + betProspect.getSport_key() + "/matches")
                 .queryParam("dateFrom", betProspect.getCommence_time().toLocalDate())
                 .queryParam("dateTo", betProspect.getCommence_time().toLocalDate())
                 .build().encode().toUri();
-        return url;
     }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 @NamedNativeQuery(
-        name = "DeletedBet.getAllDeletedBetsOfUser",
+        name = "DeletedBet.getDeletedBetsOfUser",
         query = "SELECT * FROM DELETED_BETS " +
                 "WHERE USER_ID = :USER_ID " +
                 "ORDER BY DELETE_TIME DESC",
@@ -35,7 +35,7 @@ public class DeletedBet {
     private User user;
 
     @Column(name = "HOME_TEAM")
-    private String hemeTeam;
+    private String homeTeam;
 
     @Column(name = "AWAY_TEAM")
     private String awayTeam;
@@ -58,7 +58,7 @@ public class DeletedBet {
 
     public DeletedBet(Bet bet) {
         this.user = bet.getUser();
-        this.hemeTeam = bet.getBetProspect().getTeams().get(0);
+        this.homeTeam = bet.getBetProspect().getTeams().get(0);
         this.awayTeam = bet.getBetProspect().getTeams().get(1);
         this.commence_time = bet.getBetProspect().getCommence_time();
         this.tippedWinner = bet.getTippedWinner();

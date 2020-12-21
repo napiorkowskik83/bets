@@ -2,13 +2,14 @@ package com.crud.bets.apis;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 @Getter
 public class LeaguesMap {
-    private Map<String, String> leagues;
+    private final Map<String, String> leagues;
 
     public LeaguesMap() {
         leagues = new HashMap<>();

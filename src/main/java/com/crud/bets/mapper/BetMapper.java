@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 @Component
 public class BetMapper {
 
-    private BetProspectMapper betProspectMapper;
-    private UserMapper userMapper;
+    private final BetProspectMapper betProspectMapper;
+    private final UserMapper userMapper;
 
     @Autowired
     public BetMapper(BetProspectMapper betProspectMapper, UserMapper userMapper) {
@@ -20,29 +20,23 @@ public class BetMapper {
         this.userMapper = userMapper;
     }
 
-    public Bet mapToBet(BetDto betDto){
+    public Bet mapToBet(BetDto betDto) {
         return new Bet(betDto.getId(), userMapper.mapToUser(betDto.getUser()),
                 betProspectMapper.mapToBetProspect(betDto.getBetProspect()), betDto.getCreated(),
                 betDto.getTippedWinner(), betDto.getOdd(), betDto.getStake(), betDto.isFinalized(), betDto.getWinner(),
                 betDto.isWon(), betDto.getCashWin());
     }
 
-    public List<Bet> mapToBetList(List<BetDto> betDtoList){
-        return betDtoList.stream()
-                .map(betDto -> mapToBet(betDto))
-                .collect(Collectors.toList());
-    }
-
-    public BetDto mapToBetDto(Bet bet){
+    public BetDto mapToBetDto(Bet bet) {
         return new BetDto(bet.getId(), userMapper.mapToUserDto(bet.getUser()),
                 betProspectMapper.mapToBetProspectDto(bet.getBetProspect()), bet.getCreated(),
                 bet.getTippedWinner(), bet.getOdd(), bet.getStake(), bet.isFinalized(), bet.getWinner(),
                 bet.isWon(), bet.getCashWin());
     }
 
-    public List<BetDto> mapToBetDtoList(List<Bet> betList){
+    public List<BetDto> mapToBetDtoList(List<Bet> betList) {
         return betList.stream()
-                .map(bet -> mapToBetDto(bet))
+                .map(this::mapToBetDto)
                 .collect(Collectors.toList());
     }
 }

@@ -2,6 +2,7 @@ package com.crud.bets.apis;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class TeamsMap {
         addSerieATeams();
     }
 
-    public void addLaLigaTeams(){
+    public void addLaLigaTeams() {
         teams.put("Levante", 88);
         teams.put("Valladolid", 250);
         teams.put("Cádiz CF", 264);
@@ -40,7 +41,7 @@ public class TeamsMap {
         teams.put("Real Betis", 90);
     }
 
-    public void addPremierLeagueTeams(){
+    public void addPremierLeagueTeams() {
         teams.put("Crystal Palace", 354);
         teams.put("Newcastle United", 67);
         teams.put("Brighton and Hove Albion", 397);
@@ -63,7 +64,7 @@ public class TeamsMap {
         teams.put("West Ham United", 563);
     }
 
-    public void addSerieATeams(){
+    public void addSerieATeams() {
         teams.put("FC Internazionale", 108);
         teams.put("Sassuolo", 471);
         teams.put("Benevento", 1106);

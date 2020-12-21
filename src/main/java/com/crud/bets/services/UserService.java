@@ -74,28 +74,26 @@ public class UserService {
             return new SignUpFeedback(null, "User with pointed username already exists!");
         } else if (userRepository.findByEmail(email).isPresent()) {
             return new SignUpFeedback(null, "User with pointed email already exists!");
-        } else {
-            user.setPassword(encryptor.encryptPassword(user.getPassword()));
-            if (user.getUsername().equals("Admin")){
-                user.setRole(Role.ADMIN);
-            }
-            UserDto createdUser = mapper.mapToUserDto(userRepository.save(user));
-            return new SignUpFeedback(createdUser, "Sign Up successful");
         }
+        user.setPassword(encryptor.encryptPassword(user.getPassword()));
+        if (user.getUsername().equals("Admin")) {
+            user.setRole(Role.ADMIN);
+        }
+        UserDto createdUser = mapper.mapToUserDto(userRepository.save(user));
+        return new SignUpFeedback(createdUser, "Sign Up successful");
     }
 
-    public User updateUser(User updatedUser) throws UserNotFoundException{
+    public User updateUser(User updatedUser) throws UserNotFoundException {
         User oldUser = userRepository.findById(updatedUser.getId()).orElseThrow(UserNotFoundException::new);
-        if(!updatedUser.getUsername().equals(oldUser.getUsername())){
+        if (!updatedUser.getUsername().equals(oldUser.getUsername())) {
             String oldUsername = oldUser.getUsername();
             dataChangeRepository.save(
                     new UserDataChange(updatedUser, ChangedValue.USERNAME, oldUsername, updatedUser.getUsername()));
-        } else if(!updatedUser.getEmail().equals(oldUser.getEmail())){
+        } else if (!updatedUser.getEmail().equals(oldUser.getEmail())) {
             String oldEmail = oldUser.getEmail();
             dataChangeRepository.save(
                     new UserDataChange(updatedUser, ChangedValue.EMAIL, oldEmail, updatedUser.getEmail()));
-        }
-        else if(!updatedUser.getBalance().equals(oldUser.getBalance())){
+        } else if (!updatedUser.getBalance().equals(oldUser.getBalance())) {
             BigDecimal oldBalance = oldUser.getBalance();
             balanceChangeRepository.save(new UserBalanceChange(updatedUser, oldBalance, updatedUser.getBalance()));
         }
@@ -114,20 +112,17 @@ public class UserService {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Boolean checkIfUserExists(String login){
-        if(userRepository.findByUsername(login).isPresent()){
+    public Boolean checkIfUserExists(String login) {
+        if (userRepository.findByUsername(login).isPresent()) {
             return true;
-        }else if (userRepository.findByEmail(login).isPresent()){
-            return true;
-        }
-        return false;
+        } else return userRepository.findByEmail(login).isPresent();
     }
 
-    public void deleteUser(Long userId){
+    public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
 }

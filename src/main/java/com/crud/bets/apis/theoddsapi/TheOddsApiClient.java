@@ -41,7 +41,7 @@ public class TheOddsApiClient {
     }
 
     private URI createUriForGetOddsProspects(String competitionKey) {
-        URI url = UriComponentsBuilder.fromHttpUrl(theOddsApiConfig.getTheOddApiEndpoint() +
+        return UriComponentsBuilder.fromHttpUrl(theOddsApiConfig.getTheOddApiEndpoint() +
                 "/odds/")
                 .queryParam("sport", competitionKey)
                 .queryParam("region", "eu")
@@ -49,6 +49,5 @@ public class TheOddsApiClient {
                 .queryParam("dateFormat", "iso")
                 .queryParam("apiKey", theOddsApiConfig.getTheOddApiKey())
                 .build().encode().toUri();
-        return url;
     }
 }

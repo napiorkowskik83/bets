@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Component
 public class OddsBetProspectMapper {
 
-    private CompetitionsMap competitionsMap;
+    private final CompetitionsMap competitionsMap;
 
     @Autowired
     public OddsBetProspectMapper(CompetitionsMap competitionsMap) {
@@ -27,7 +27,7 @@ public class OddsBetProspectMapper {
 
     public BetProspectDto mapFromOddsToBetProspectDto(OddsApiBetProspect oddsApiBetProspect) {
         Integer sport_key = null;
-        if(competitionsMap.getCompetitions().containsKey(oddsApiBetProspect.getSport_key())){
+        if (competitionsMap.getCompetitions().containsKey(oddsApiBetProspect.getSport_key())) {
             sport_key = competitionsMap.getCompetitions().get(oddsApiBetProspect.getSport_key()).getId();
         }
         List<String> teams = new ArrayList<>();
@@ -50,9 +50,9 @@ public class OddsBetProspectMapper {
                 awayTeamWinOddSum += site.getOdds().getH2h().get(2);
                 sitesQty++;
             }
-            homeTeamWinOdd = new BigDecimal(homeTeamWinOddSum/sitesQty).setScale(2, RoundingMode.HALF_UP);
-            drawOdd = new BigDecimal(drawOddSum/sitesQty).setScale(2, RoundingMode.HALF_UP);
-            awayTeamWinOdd = new BigDecimal(awayTeamWinOddSum/sitesQty).setScale(2, RoundingMode.HALF_UP);
+            homeTeamWinOdd = new BigDecimal(homeTeamWinOddSum / sitesQty).setScale(2, RoundingMode.HALF_UP);
+            drawOdd = new BigDecimal(drawOddSum / sitesQty).setScale(2, RoundingMode.HALF_UP);
+            awayTeamWinOdd = new BigDecimal(awayTeamWinOddSum / sitesQty).setScale(2, RoundingMode.HALF_UP);
         } else {
             teams.add(oddsApiBetProspect.getTeams().get(1));
             teams.add(oddsApiBetProspect.getTeams().get(0));
@@ -63,9 +63,9 @@ public class OddsBetProspectMapper {
                 awayTeamWinOddSum += site.getOdds().getH2h().get(0);
                 sitesQty++;
             }
-            homeTeamWinOdd = new BigDecimal(homeTeamWinOddSum/sitesQty).setScale(2, RoundingMode.HALF_UP);
-            drawOdd = new BigDecimal(drawOddSum/sitesQty).setScale(2, RoundingMode.HALF_UP);
-            awayTeamWinOdd = new BigDecimal(awayTeamWinOddSum/sitesQty).setScale(2, RoundingMode.HALF_UP);
+            homeTeamWinOdd = new BigDecimal(homeTeamWinOddSum / sitesQty).setScale(2, RoundingMode.HALF_UP);
+            drawOdd = new BigDecimal(drawOddSum / sitesQty).setScale(2, RoundingMode.HALF_UP);
+            awayTeamWinOdd = new BigDecimal(awayTeamWinOddSum / sitesQty).setScale(2, RoundingMode.HALF_UP);
         }
         h2h.add(homeTeamWinOdd);
         h2h.add(drawOdd);
@@ -82,9 +82,9 @@ public class OddsBetProspectMapper {
         return betProspectDto;
     }
 
-    public List<BetProspectDto> mapFromOddsToBetProspectDtoList(List<OddsApiBetProspect> oddsApiBetProspectList){
+    public List<BetProspectDto> mapFromOddsToBetProspectDtoList(List<OddsApiBetProspect> oddsApiBetProspectList) {
         return oddsApiBetProspectList.stream()
-                .map(oddsApiBetProspectDto -> mapFromOddsToBetProspectDto(oddsApiBetProspectDto))
+                .map(this::mapFromOddsToBetProspectDto)
                 .collect(Collectors.toList());
     }
 }

@@ -11,13 +11,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class CoreConfiguration implements WebMvcConfigurer {
 
-   @Bean
-    public RestTemplate restTemplate(){
+    @Bean
+    public RestTemplate restTemplate() {
         return new RestTemplate();
-   }
+    }
 
-   @Bean
-   public StrongPasswordEncryptor encryptor(){
-       return new StrongPasswordEncryptor();
-   }
+    @Bean
+    public StrongPasswordEncryptor encryptor() {
+        return new StrongPasswordEncryptor();
+    }
 }

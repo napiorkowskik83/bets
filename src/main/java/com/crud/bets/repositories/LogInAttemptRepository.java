@@ -13,20 +13,20 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface LogInAttemptRepository extends CrudRepository<LogInAttempt, Long>{
+public interface LogInAttemptRepository extends CrudRepository<LogInAttempt, Long> {
 
-        @Override
-        List<LogInAttempt> findAll();
+    @Override
+    List<LogInAttempt> findAll();
 
-        @Override
-        LogInAttempt save(LogInAttempt logInAttempt);
+    @Override
+    LogInAttempt save(LogInAttempt logInAttempt);
 
-        @Override
-        Optional<LogInAttempt> findById(Long id);
+    @Override
+    Optional<LogInAttempt> findById(Long id);
 
-        @Query(nativeQuery = true)
-        List<LogInAttempt> getAllLogInAttemptsOfUser(@Param("USER_ID") Long userId);
+    @Query(nativeQuery = true)
+    List<LogInAttempt> getAllLogInAttemptsOfUser(@Param("USER_ID") Long userId);
 
-        @Query(nativeQuery = true)
-        List<LogInAttempt> getFailedLogInAttemptsOfUser(@Param("USER_ID") Long userId);
+    @Query(nativeQuery = true)
+    List<LogInAttempt> getFailedLogInAttemptsOfUser(@Param("USER_ID") Long userId);
 }

@@ -18,12 +18,12 @@ public interface DeletedBetRepository extends CrudRepository<DeletedBet, Long> {
     List<DeletedBet> findAll();
 
     @Override
-    DeletedBet save(DeletedBet bet);
+    DeletedBet save(DeletedBet deletedBet);
 
     @Override
     Optional<DeletedBet> findById(Long id);
 
     @Query(nativeQuery = true)
-    List<DeletedBet> getAllDeletedBetsOfUser(@Param("USER_ID") Long userId);
+    List<DeletedBet> getDeletedBetsOfUser(@Param("USER_ID") Long userId);
 
 }

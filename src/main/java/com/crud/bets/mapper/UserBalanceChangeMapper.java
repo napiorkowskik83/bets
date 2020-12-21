@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 @Component
 public class UserBalanceChangeMapper {
 
-    public UserBalanceChangeDto mapToUserBalanceChange(UserBalanceChange userBalanceChange) {
+    public UserBalanceChangeDto mapToUserBalanceChangeDto(UserBalanceChange userBalanceChange) {
         return new UserBalanceChangeDto(userBalanceChange.getId(), userBalanceChange.getUser().getId(),
                 userBalanceChange.getOldValue(), userBalanceChange.getNewValue(), userBalanceChange.getChangeTime());
     }
 
-    public List<UserBalanceChangeDto> mapToUserBalanceChangeList(List<UserBalanceChange> userBalanceChangeList) {
-        return userBalanceChangeList.stream().map(userBalanceChange -> mapToUserBalanceChange(userBalanceChange))
+    public List<UserBalanceChangeDto> mapToUserBalanceChangeDtoList(List<UserBalanceChange> userBalanceChangeList) {
+        return userBalanceChangeList.stream().map(this::mapToUserBalanceChangeDto)
                 .collect(Collectors.toList());
     }
 }

@@ -2,23 +2,29 @@ package com.crud.bets.mapper;
 
 import com.crud.bets.apis.CompetitionsMap;
 import com.crud.bets.apis.theoddsapi.ApiOdds;
-import com.crud.bets.domain.BetProspect;
 import com.crud.bets.apis.theoddsapi.OddsApiBetProspect;
 import com.crud.bets.apis.theoddsapi.Site;
 import com.crud.bets.domain.BetProspectDto;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OddsBetProspectMapperTestSuite {
+
+    private static final String HOME_TEAM = "Barcelona";
+    private static final String AWAY_TEAM = "Real Madrid";
+    private static final String LA_LIGA = "soccer_spain_la_liga";
 
     @Autowired
     OddsBetProspectMapper oddsBetProspectMapper;
@@ -43,29 +49,30 @@ public class OddsBetProspectMapperTestSuite {
         ApiOdds apiOdds2 = new ApiOdds(h2h2);
         Site site2 = new Site(apiOdds2);
 
-        List<Site> sites =new ArrayList<>();
+        List<Site> sites = new ArrayList<>();
         sites.add(site1);
         sites.add(site2);
 
         List<String> teams = new ArrayList<>();
-        teams.add("Real Madrid");
-        teams.add("Barcelona");
+        teams.add(AWAY_TEAM);
+        teams.add(HOME_TEAM);
 
         ZonedDateTime commenceTime = ZonedDateTime.parse("2020-11-28T18:30:50Z");
 
         OddsApiBetProspect apiBetProspect = new OddsApiBetProspect(
-                "soccer_spain_la_liga", teams, "Real Madrid", commenceTime, sites);
+                LA_LIGA, teams, HOME_TEAM, commenceTime, sites);
 
         //When
         BetProspectDto betProspectDto = oddsBetProspectMapper.mapFromOddsToBetProspectDto(apiBetProspect);
 
         //Then
-        Assert.assertEquals(commenceTime, betProspectDto.getCommence_time());
-        System.out.println(
-                betProspectDto.getSport_key() + "\n" +
-                betProspectDto.getTeams() + "\n" +
-                betProspectDto.getH2h() + "\n" +
-                betProspectDto.getCommence_time() + "\n"
-        );
+        assertEquals(competitionsMap.getCompetitions().get(LA_LIGA).getId(), betProspectDto.getSport_key());
+        assertEquals(HOME_TEAM, betProspectDto.getTeams().get(0));
+        assertEquals(AWAY_TEAM, betProspectDto.getTeams().get(1));
+        assertEquals(new BigDecimal("4.34"), betProspectDto.getH2h().get(0));
+        assertEquals(new BigDecimal("3.38"), betProspectDto.getH2h().get(1));
+        assertEquals(new BigDecimal("5.55"), betProspectDto.getH2h().get(2));
+        assertEquals(commenceTime, betProspectDto.getCommence_time());
+
     }
 }

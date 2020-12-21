@@ -19,7 +19,7 @@ public class DeletedBetDto {
 
     private Long id;
     private Long userId;
-    private String hemeTeam;
+    private String homeTeam;
     private String awayTeam;
     private ZonedDateTime commence_time;
     private Winner tippedWinner;

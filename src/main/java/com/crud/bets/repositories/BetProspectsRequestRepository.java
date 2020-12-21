@@ -2,7 +2,6 @@ package com.crud.bets.repositories;
 
 
 import com.crud.bets.domain.BetProspectsRequest;
-import com.crud.bets.domain.LogInAttempt;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -14,18 +13,17 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public interface BetProspectsRequestRepository extends CrudRepository<BetProspectsRequest, Long>{
+public interface BetProspectsRequestRepository extends CrudRepository<BetProspectsRequest, Long> {
 
-        @Override
-        List<BetProspectsRequest> findAll();
+    @Override
+    List<BetProspectsRequest> findAll();
 
-        @Override
-        BetProspectsRequest save(BetProspectsRequest prospectsRequest);
+    @Override
+    BetProspectsRequest save(BetProspectsRequest prospectsRequest);
 
-        @Override
-        Optional<BetProspectsRequest> findById(Long id);
+    @Override
+    Optional<BetProspectsRequest> findById(Long id);
 
-        @Query(nativeQuery = true)
-        List<BetProspectsRequest> getBetProspectsRequestsOfUser(@Param("USER_ID") Long userId);
-
+    @Query(nativeQuery = true)
+    List<BetProspectsRequest> getBetProspectsRequestsOfUser(@Param("USER_ID") Long userId);
 }

@@ -7,6 +7,8 @@ import com.crud.bets.services.BetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 @RestController
 @RequestMapping("/v1")
 @CrossOrigin(origins = "*")
@@ -22,27 +24,26 @@ public class BetController {
     }
 
     @GetMapping(value = "/bets")
-    public BetDtoList getAllBets() throws UserNotFoundException{
+    public BetDtoList getAllBets() {
         return new BetDtoList(mapper.mapToBetDtoList(service.getAllBets()));
     }
 
     @GetMapping(value = "/bets/{userId}/{onlyPending}")
     public BetDtoList getBetsOfUser(@PathVariable Long userId, @PathVariable Boolean onlyPending) {
-        if (onlyPending){
+        if (onlyPending) {
             return new BetDtoList(mapper.mapToBetDtoList(service.getPendingBetsOfUser(userId)));
         }
         return new BetDtoList(mapper.mapToBetDtoList(service.getAllBetsOfUser(userId)));
     }
 
 
-    @PostMapping(value = "/bets")
-    public void addBet(@RequestBody BetDto betDto){
+    @PostMapping(value = "/bets", consumes = APPLICATION_JSON_VALUE)
+    public void addBet(@RequestBody BetDto betDto) {
         service.addBet(mapper.mapToBet(betDto));
     }
 
     @DeleteMapping(value = "/bets/{betId}")
-    public void deleteBet(@PathVariable Long betId){
+    public void deleteBet(@PathVariable Long betId) {
         service.deleteBet(betId);
     }
-
 }
