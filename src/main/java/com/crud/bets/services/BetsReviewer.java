@@ -54,40 +54,42 @@ public class BetsReviewer {
         List<Bet> betsToReview = pendingBets.stream()
                 .filter(bet -> minutes.between(bet.getBetProspect().getCommence_time(), ZonedDateTime.now()) > 105)
                 .collect(Collectors.toList());
-        User user = userRepository.findById(userId).get();
-        int finalized = 0;
-        int won = 0;
-        BigDecimal cashWin = BigDecimal.ZERO;
-        for (Bet bet : betsToReview) {
-            List<Match> matches = dataClient.getDailyMatchesResults(bet);
-            for (Match match : matches) {
-                if (teamsMatchAndIsFinished(bet, match)) {
-                    bet.setFinalized(true);
-                    bet.setWinner(match.getScore().getWinner());
-                    finalized++;
-                    if (bet.getTippedWinner().equals(match.getScore().getWinner())) {
-                        bet.setWon(true);
-                        bet.setCashWin(bet.getOdd().multiply(bet.getStake()).setScale(2, RoundingMode.HALF_UP));
-                        BigDecimal oldBalance = user.getBalance();
-                        user.setBalance(user.getBalance().add(bet.getCashWin()));
-                        bet.setUser(user);
-                        userRepository.save(user);
-                        betRepository.save(bet);
-                        changeRepository.save(new UserBalanceChange(user, oldBalance, user.getBalance()));
-                        won++;
-                        cashWin = cashWin.add(bet.getCashWin());
-                    } else {
-                        bet.setWon(false);
-                        bet.setCashWin(BigDecimal.ZERO);
-                        betRepository.save(bet);
+        synchronized (UserRepository.class){
+            User user = userRepository.findById(userId).get();
+            int finalized = 0;
+            int won = 0;
+            BigDecimal cashWin = BigDecimal.ZERO;
+            for (Bet bet : betsToReview) {
+                List<Match> matches = dataClient.getDailyMatchesResults(bet);
+                for (Match match : matches) {
+                    if (teamsMatchAndIsFinished(bet, match)) {
+                        bet.setFinalized(true);
+                        bet.setWinner(match.getScore().getWinner());
+                        finalized++;
+                        if (bet.getTippedWinner().equals(match.getScore().getWinner())) {
+                            bet.setWon(true);
+                            bet.setCashWin(bet.getOdd().multiply(bet.getStake()).setScale(2, RoundingMode.HALF_UP));
+                            BigDecimal oldBalance = user.getBalance();
+                            user.setBalance(user.getBalance().add(bet.getCashWin()));
+                            bet.setUser(user);
+                            userRepository.save(user);
+                            betRepository.save(bet);
+                            changeRepository.save(new UserBalanceChange(user, oldBalance, user.getBalance()));
+                            won++;
+                            cashWin = cashWin.add(bet.getCashWin());
+                        } else {
+                            bet.setWon(false);
+                            bet.setCashWin(BigDecimal.ZERO);
+                            betRepository.save(bet);
+                        }
                     }
                 }
             }
+            if (won > 0) {
+                sendBetsWonInfoEmail(user, finalized, won, cashWin);
+            }
         }
 
-        if (won > 0) {
-            sendBetsWonInfoEmail(user, finalized, won, cashWin);
-        }
     }
 
     private void sendBetsWonInfoEmail(User user, int finalized, int won, BigDecimal cashWin) {

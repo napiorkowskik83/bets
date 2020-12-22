@@ -19,7 +19,7 @@ public class BetsReviewScheduler {
         this.userRepository = userRepository;
     }
 
-    @Scheduled(cron = "0 0 13-23 * * *")
+    @Scheduled(cron = "0 0 4 * * *")
     public void reviewPendingBets() {
         List<User> users = userRepository.findAll();
         for (User user : users) {
