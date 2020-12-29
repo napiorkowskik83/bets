@@ -84,6 +84,7 @@ public class OddsBetProspectMapper {
 
     public List<BetProspectDto> mapFromOddsToBetProspectDtoList(List<OddsApiBetProspect> oddsApiBetProspectList) {
         return oddsApiBetProspectList.stream()
+                .filter(o -> o.getSites().size() > 0)
                 .map(this::mapFromOddsToBetProspectDto)
                 .collect(Collectors.toList());
     }
