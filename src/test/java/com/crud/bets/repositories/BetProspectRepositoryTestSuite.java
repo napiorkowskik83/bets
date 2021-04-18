@@ -1,12 +1,11 @@
 package com.crud.bets.repositories;
 
 import com.crud.bets.domain.BetProspect;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -14,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class BetProspectRepositoryTestSuite {
 
@@ -43,7 +44,7 @@ public class BetProspectRepositoryTestSuite {
         Optional<BetProspect> optionalBetProspect = repository.findById(id);
 
         //Then
-        Assert.assertTrue(optionalBetProspect.isPresent());
+        assertTrue(optionalBetProspect.isPresent());
         System.out.println(optionalBetProspect.get().getH2h());
         System.out.println(optionalBetProspect.get().getTeams());
 

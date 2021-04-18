@@ -4,11 +4,13 @@ import com.crud.bets.apis.LeaguesMap;
 import com.crud.bets.apis.theoddsapi.TheOddsApiClient;
 import com.crud.bets.domain.*;
 import com.crud.bets.mapper.OddsBetProspectMapper;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,9 +20,9 @@ import java.util.*;
 
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
-import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
+
+@ExtendWith(MockitoExtension.class)
 public class BetProspectFacadeTestSuite {
 
     @InjectMocks

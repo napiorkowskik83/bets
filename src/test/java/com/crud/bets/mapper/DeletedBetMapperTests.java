@@ -1,20 +1,20 @@
 package com.crud.bets.mapper;
 
 import com.crud.bets.domain.*;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class DeletedBetMapperTests {
 
@@ -44,7 +44,5 @@ public class DeletedBetMapperTests {
         assertEquals(deletedBet.getOdd(), deletedBetDto.getOdd());
         assertEquals(deletedBet.getStake(), deletedBetDto.getStake());
         assertEquals(deletedBet.getDeleteTime(), deletedBetDto.getDeleteTime());
-
-
     }
 }
